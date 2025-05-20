@@ -1,9 +1,12 @@
 package joney.board.article.api;
 
+import joney.board.article.entity.Article;
+import joney.board.article.service.response.ArticlePageResponse;
 import joney.board.article.service.response.ArticleResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.web.client.RestClient;
 
 public class ArticleApiTest {
@@ -57,6 +60,19 @@ public class ArticleApiTest {
         restClient.delete()
                 .uri("/v1/articles/{articleId}", 182466235838070784L)
                 .retrieve();
+    }
+
+    @Test
+    void readAllTest(){
+        ArticlePageResponse articlePageResponse = restClient.get()
+                .uri("/v1/articles?boardId=1&pageSize=30&page=1")
+                .retrieve()
+                .body(ArticlePageResponse.class);
+
+        System.out.println("response.getArticleCount() = " + articlePageResponse.getArticleCount());
+        for (ArticleResponse article : articlePageResponse.getArticles()) {
+            System.out.println("articleId = " + article.getArticleId());
+        }
     }
 
     @Getter

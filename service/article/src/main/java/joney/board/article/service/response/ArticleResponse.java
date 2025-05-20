@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @ToString
@@ -29,4 +30,5 @@ public class ArticleResponse {
         response.modifiedAt = article.getModifiedAt();
         return response;
     }
+
 }
